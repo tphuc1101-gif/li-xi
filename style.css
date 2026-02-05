@@ -72,7 +72,8 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 5rem;
+  font-size: 50px;
+  margin-top: 30px;
   background: var(--gold);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
