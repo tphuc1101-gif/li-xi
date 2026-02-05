@@ -3,7 +3,7 @@ const wishText = document.getElementById("wish-text");
 
 const wishes = [
   // --- LỜI CHÚC TRUYỀN THỐNG & Ý NGHĨA ---
-  "Chúc mừng năm mới Ất Tỵ 2026! Vạn sự như ý, tỷ sự như mơ, triệu triệu bất ngờ, không chờ cũng đến! 🧧",
+  "Chúc mừng năm mới Bính Ngọ 2026! Vạn sự như ý, tỷ sự như mơ, triệu triệu bất ngờ, không chờ cũng đến! 🧧",
   "Mừng xuân 2026: Chúc bạn và gia đình an khang thịnh vượng, vạn sự hanh thông, công thành danh toại! ✨",
   "Chúc bạn năm mới: Đa lộc, đa tài, đa phú quý. Đắc thời, đắc thắng, đắc nhân tâm! 🐲",
   "Năm mới 2026, chúc bạn một chữ nhàn cho thân thảnh thơi, một chữ phú cho đời ấm no, một chữ quý cho người thêm trọng! 🎋",
