@@ -3,269 +3,36 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Lì Xì Tết 2026 - Offline</title>
-    <meta property="og:title" content="Lì Xì May Mắn 2026" />
-    <meta
-      property="og:description"
-      content="Chạm để nhận lộc đầu năm từ mình nhé!"
+    <title>Xuân Ất Tỵ 2026</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap"
+      rel="stylesheet"
     />
-    <meta property="og:image" content="link-ảnh-bao-lì-xì-của-bạn" />
-    <style>
-      :root {
-        --red: #e61e1e;
-        --gold: #ffcf4b;
-      }
-      body {
-        margin: 0;
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        background: radial-gradient(circle, #660000, #220000);
-        font-family: "Segoe UI", Arial, sans-serif;
-        overflow: hidden;
-      }
-
-      /* Canvas nền cho pháo hoa */
-      #fireworksCanvas {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        z-index: 5;
-      }
-
-      .envelope-wrapper {
-        position: relative;
-        width: 220px;
-        height: 300px;
-        cursor: pointer;
-        perspective: 1000px;
-        z-index: 10;
-      }
-      .lid {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 120px;
-        background: #b31212;
-        border-radius: 0 0 110px 110px;
-        z-index: 3;
-        transform-origin: top;
-        transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-        border: 1px solid rgba(255, 215, 0, 0.3);
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-      }
-      .body {
-        position: absolute;
-        bottom: 0;
-        width: 100%;
-        height: 100%;
-        background: var(--red);
-        border-radius: 5px 5px 15px 15px;
-        z-index: 2;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        box-shadow: 0 15px 50px rgba(0, 0, 0, 0.6);
-        border: 2px solid var(--gold);
-      }
-      .symbol {
-        font-size: 60px;
-        color: var(--gold);
-        margin-top: 70px;
-      }
-      .card {
-        position: absolute;
-        top: 10px;
-        left: 10px;
-        width: 200px;
-        height: 280px;
-        background: #fffcf0;
-        border-radius: 8px;
-        z-index: 1;
-        transition: 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        padding: 20px;
-        box-sizing: border-box;
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        border: 1px solid #ddd;
-      }
-      .card h2 {
-        color: var(--red);
-        margin: 0 0 10px 0;
-        font-size: 18px;
-      }
-      .card p {
-        color: #333;
-        font-size: 14px;
-        line-height: 1.6;
-        font-weight: bold;
-      }
-
-      .open .lid {
-        transform: rotateX(160deg);
-        z-index: 0;
-      }
-      .open .card {
-        transform: translateY(-180px);
-        z-index: 4;
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-      }
-
-      .hint {
-        margin-top: 50px;
-        color: var(--gold);
-        font-weight: bold;
-        letter-spacing: 2px;
-        z-index: 10;
-      }
-    </style>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <canvas id="fireworksCanvas"></canvas>
+    <div class="bg-glow"></div>
 
-    <div class="envelope-wrapper" id="lixi">
-      <div class="lid"></div>
-      <div class="card">
-        <h2>🧧 LỘC XUÂN 🧧</h2>
-        <p id="wish-text">Bấm để nhận lời chúc...</p>
+    <div class="lixi-wrapper" id="lixi">
+      <div class="envelope">
+        <div class="flap"></div>
+        <div class="body">
+          <div class="gold-dragon">🐉</div>
+          <div class="sparkles"></div>
+        </div>
       </div>
-      <div class="body">
-        <div class="symbol">Lì Xì</div>
+
+      <div class="card" id="card">
+        <div class="card-inner">
+          <h2 class="title-2026">Ất Tỵ 2026</h2>
+          <div class="divider"></div>
+          <p id="wish-text">Vạn Sự Như Ý</p>
+        </div>
       </div>
     </div>
-    <div class="hint">CHẠM ĐỂ MỞ LÌ XÌ</div>
 
-    <script>
-      const canvas = document.getElementById("fireworksCanvas");
-      const ctx = canvas.getContext("2d");
-      let particles = [];
-
-      // Cập nhật kích thước canvas
-      function resize() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-      }
-      window.addEventListener("resize", resize);
-      resize();
-
-      class Particle {
-        constructor(x, y, color) {
-          this.x = x;
-          this.y = y;
-          this.color = color;
-          this.size = Math.random() * 4 + 2;
-          this.speedX = (Math.random() - 0.5) * 10;
-          this.speedY = (Math.random() - 0.5) * 10;
-          this.gravity = 0.1;
-          this.opacity = 1;
-        }
-        update() {
-          this.x += this.speedX;
-          this.y += this.speedY;
-          this.speedY += this.gravity;
-          this.opacity -= 0.015;
-        }
-        draw() {
-          ctx.globalAlpha = this.opacity;
-          ctx.fillStyle = this.color;
-          ctx.beginPath();
-          ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-          ctx.fill();
-        }
-      }
-
-      function createExplosion(x, y) {
-        const colors = ["#ff0000", "#ffd700", "#ffffff", "#ff4d4d", "#ffcc00"];
-        for (let i = 0; i < 100; i++) {
-          particles.push(
-            new Particle(
-              x,
-              y,
-              colors[Math.floor(Math.random() * colors.length)],
-            ),
-          );
-        }
-      }
-
-      function animate() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        particles = particles.filter((p) => p.opacity > 0);
-        particles.forEach((p) => {
-          p.update();
-          p.draw();
-        });
-        requestAnimationFrame(animate);
-      }
-      animate();
-
-      const wishes = [
-        // --- HÀI HƯỚC ---
-        "Chúc bạn năm mới: Đau đầu vì nhà giàu, mệt mỏi vì học giỏi, buồn phiền vì nhiều tiền!",
-        "Chúc bạn tiền vào cửa trước, vàng vào cửa sau, hai cái gặp nhau chui tọt vào két.",
-        "Chúc bạn năm mới 2026: Sức khỏe bền bỉ, tiền vào bạc tỷ, tiền ra ri rỉ!",
-        "Năm mới chúc bạn bớt rắc rối, bớt muộn phiền, chỉ có tiền và tiền đầy túi.",
-        "Chúc năm mới: Ăn nhiều không béo, tiền nhiều như kẹo, tình chặt như keo.",
-
-        // --- TRUYỀN THỐNG ---
-        "Vạn sự như ý - Đắc lộc toàn gia - Mọi việc suôn sẻ - Hạnh phúc bao la!",
-        "Chúc mừng năm mới! Chúc gia đình bạn vạn thọ vô cương, an khang thịnh vượng.",
-        "Năm mới chúc bạn: Công thành danh toại, trẻ mãi không già, phúc lộc đầy nhà.",
-        "Tết tới tấn tài - Xuân sang đắc lộc - Gia đình hạnh phúc - Vạn sự cát tường!",
-        "Chúc bạn 365 ngày hạnh phúc, 12 tháng vui vẻ, 1 đời bình an.",
-
-        // --- CÔNG VIỆC/HỌC TẬP ---
-        "Chúc bạn năm mới sự nghiệp thăng tiến, sếp quý đồng nghiệp thương, lương tăng vù vù!",
-        "Chúc bạn năm 2026: Học hành tấn tới, thi đâu đỗ đó, nhận bằng khen mỏi tay.",
-        "Chúc công việc của bạn suôn sẻ như nước chảy, thành công rực rỡ như pháo hoa!",
-
-        // --- THẢ THÍNH / DỄ THƯƠNG ---
-        "Năm mới 2026: Gió đưa cành trúc la đà, Lì xì em đó hay là yêu luôn?",
-        "Bao lì xì đỏ, bên trong có tiền. Còn anh/em có muốn, thành người yêu tớ?",
-        "Tết này ăn miếng bánh chưng, nhìn em/anh một chút đã thấy ưng trong lòng.",
-
-        // --- Ý NGHĨA ---
-        "Chúc bạn luôn giữ được nụ cười trên môi, vì nụ cười của bạn là mùa xuân của mọi người.",
-        "Năm mới hãy quên đi những nỗi buồn, chỉ giữ lại những kỉ niệm đẹp và niềm hy vọng mới.",
-        "Chúc bạn năm 2026 sẽ là phiên bản tuyệt vời nhất của chính mình!",
-      ];
-
-      const lixi = document.getElementById("lixi");
-      const wishText = document.getElementById("wish-text");
-
-      lixi.addEventListener("click", (e) => {
-        if (!lixi.classList.contains("open")) {
-          wishText.innerText =
-            wishes[Math.floor(Math.random() * wishes.length)];
-          // Nổ ngay vị trí click hoặc giữa bao lì xì
-          createExplosion(
-            e.clientX || window.innerWidth / 2,
-            e.clientY || window.innerHeight / 2,
-          );
-          // Thêm vài đợt nổ phụ cho "bùng nổ"
-          setTimeout(
-            () =>
-              createExplosion(window.innerWidth / 4, window.innerHeight / 3),
-            200,
-          );
-          setTimeout(
-            () =>
-              createExplosion(
-                (3 * window.innerWidth) / 4,
-                window.innerHeight / 3,
-              ),
-            400,
-          );
-        }
-        lixi.classList.toggle("open");
-      });
-    </script>
+    <script src="script.js"></script>
   </body>
 </html>
