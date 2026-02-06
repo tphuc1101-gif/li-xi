@@ -145,3 +145,27 @@ body {
   transform: translateY(-320px);
   z-index: 5;
 }
+@media (max-width: 480px) {
+  .lixi-wrapper {
+    width: 300px; /* Thu nhỏ bao lì xì */
+    height: 400px;
+    margin-top: 150px;
+  }
+
+  .card {
+    height: 280px;
+  }
+
+  /* Khi mở thiệp trên mobile, không nên đẩy lên quá cao */
+  .lixi-wrapper.open .card {
+    transform: translateY(-200px) scale(1.1);
+  }
+
+  .gold-dragon {
+    font-size: 35px;
+  }
+
+  #wish-text {
+    font-size: 1.1rem;
+  }
+}
