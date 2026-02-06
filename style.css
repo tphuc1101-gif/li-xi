@@ -55,6 +55,9 @@ body {
   height: 380px;
   cursor: pointer;
   filter: drop-shadow(0 0 30px rgba(212, 175, 55, 0.3));
+  width: 300px; /* Thu nhỏ bao lì xì */
+  height: 400px;
+  margin-top: 150px;
 }
 
 .envelope {
@@ -120,6 +123,7 @@ body {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   margin: 0;
+  font-size: 30px;
 }
 
 .divider {
